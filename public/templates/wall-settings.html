@@ -1,0 +1,86 @@
+<template id="wall-settings">
+  <h2><span data-section-title></span></h2>
+  <form>
+    <div data-section="layout">
+      <h3>Normale Bilderwand</h3>
+      <div class="two-columns">
+        <label>Spalten<input type="number" name="layoutColumns" min="1" max="4" required /></label
+        ><label>Zeilen<input type="number" name="layoutRows" min="1" max="3" required /></label
+        ><label
+          >Abstand zwischen Feldern (px)<input
+            type="number"
+            name="layoutGap"
+            min="0"
+            max="60"
+            required /></label
+        ><label
+          >Außenabstand (px)<input
+            type="number"
+            name="layoutPadding"
+            min="0"
+            max="60"
+            required /></label
+        ><label
+          >Breite links bei zwei Spalten (%)<input
+            type="number"
+            name="layoutLeftPercent"
+            min="25"
+            max="75"
+            required /></label
+        ><label
+          >Infotafelposition<select name="noticePosition">
+            <option value="top-right">Rechts oben</option>
+            <option value="top-left">Links oben</option>
+            <option value="bottom-right">Rechts unten</option>
+            <option value="bottom-left">Links unten</option>
+            <option value="off">Nicht in der Rotation anzeigen</option>
+          </select></label
+        >
+      </div>
+      <label class="check-row"
+        ><input type="checkbox" name="portraitFeature" />Hochformat gelegentlich über zwei Felder
+        anzeigen (ab zwei Zeilen)</label
+      >
+      <div class="layout-preview" aria-label="Layoutvorschau"></div>
+      <p>
+        Die Infotafel belegt ein Feld, wenn Inhalt oder Termine vorhanden sind. Fixierte Inhalte
+        bekommen ein eigenes Feld; in einer Ansicht mit nur einem Medienfeld wechseln sie mit den
+        Fotos.
+      </p>
+    </div>
+    <div data-section="touch">
+      <h3>Kamera-/Fixansicht bei Berührung</h3>
+      <label class="check-row"
+        ><input type="checkbox" name="touchEnabled" />Touch-Modus aktivieren</label
+      >
+      <div class="two-columns">
+        <label
+          >Rückkehr zur Rotation nach (Sekunden)<input
+            type="number"
+            name="touchDuration"
+            min="5"
+            max="3600"
+            required /></label
+        ><label
+          >Spalten in der Touch-Ansicht<input
+            type="number"
+            name="touchColumns"
+            min="1"
+            max="4"
+            required
+        /></label>
+      </div>
+      <p>
+        Ein Klick oder Touch zeigt alle ausgewählten Inhalte gleichzeitig. Eine weitere Berührung
+        verlängert die Zeit. Maximal 12 Inhalte; nur aktive, fixierte Inhalte werden angezeigt.
+      </p>
+      <div class="touch-selection">
+        <div data-touch-items></div>
+      </div>
+    </div>
+    <p class="form-error" role="status"></p>
+    <div class="dialog-actions">
+      <button class="primary"><span data-save-title></span> speichern</button>
+    </div>
+  </form>
+</template>

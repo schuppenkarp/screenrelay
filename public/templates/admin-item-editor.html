@@ -1,0 +1,48 @@
+<template id="photo-editor">
+  <form id="item-form">
+    <div class="dialog-heading">
+      <div>
+        <span class="eyebrow">BILD</span>
+        <h2>Inhalt bearbeiten</h2>
+      </div>
+      <button type="button" class="close-dialog" aria-label="Schließen">×</button>
+    </div>
+    <img class="editor-image" src="" alt="" />
+    <label
+      >Titel<input name="title" required maxlength="120" value="" placeholder="Bildtitel"
+    /></label>
+    <div class="two-columns">
+      <label
+        >Anzeigedauer (Sekunden)<input
+          name="duration"
+          type="number"
+          min="2"
+          max="600"
+          placeholder="Standard verwenden"
+          value=""
+        /><small>Leer lassen für die globale Einstellung.</small></label
+      ><label
+        >Position in der Reihenfolge<input
+          name="sort_order"
+          type="number"
+          min="0"
+          max="10000"
+          value=""
+        /><small>Kleinere Zahlen erscheinen zuerst.</small></label
+      >
+    </div>
+    <label class="check-row"
+      ><input name="pinned" type="checkbox" /><span
+        >Fixieren <small>Regelmäßig zwischen den normalen Fotos anzeigen.</small></span
+      ></label
+    ><label class="check-row"
+      ><input name="visible" type="checkbox" /><span>Auf dem Monitor anzeigen</span></label
+    >
+    <div class="dialog-actions">
+      <button type="button" id="delete-item" class="danger">Löschen</button
+      ><button type="button" class="close-dialog button">Abbrechen</button
+      ><button type="submit" class="primary">Speichern <span data-icon="check"></span></button>
+    </div>
+    <p id="editor-error" class="form-error" role="alert"></p>
+  </form>
+</template>

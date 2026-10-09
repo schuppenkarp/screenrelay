@@ -1,0 +1,103 @@
+<template id="notice-editor">
+  <form>
+    <div class="dialog-heading">
+      <h2>Infotafel gestalten</h2>
+      <button type="button" data-close aria-label="Schließen">×</button>
+    </div>
+    <div class="notice-columns">
+      <section>
+        <label id="notice-label">Inhalt bearbeiten</label>
+        <div class="markdown-toolbar" role="toolbar" aria-label="Text formatieren">
+          <button type="button" data-command="bold" title="Fett"><b>B</b></button
+          ><button type="button" data-command="italic" title="Kursiv"><i>I</i></button
+          ><button type="button" data-command="underline" title="Unterstrichen"><u>U</u></button>
+          <div class="notice-size-control">
+            <button
+              type="button"
+              id="notice-smaller"
+              title="Schrift um 1 Pixel verkleinern"
+              aria-label="Schrift verkleinern"
+            >
+              A−</button
+            ><label
+              >Größe
+              <input
+                id="notice-size"
+                type="number"
+                min="8"
+                max="120"
+                step="1"
+                value="18"
+                aria-label="Schriftgröße in Pixeln"
+              /><span>px</span></label
+            ><button
+              type="button"
+              id="notice-larger"
+              title="Schrift um 1 Pixel vergrößern"
+              aria-label="Schrift vergrößern"
+            >
+              A+
+            </button>
+          </div>
+          <select id="notice-font" aria-label="Schriftart">
+            <option value="Nunito">Nunito</option>
+            <option value="Arial">Arial</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Courier New">Courier New</option></select
+          ><label class="color-control"
+            >Farbe
+            <input id="notice-color" type="color" value="#ffffff" aria-label="Textfarbe" /></label
+          ><button type="button" data-command="justifyLeft">Links</button
+          ><button type="button" data-command="justifyCenter">Mittig</button
+          ><button type="button" data-command="justifyRight">Rechts</button
+          ><button type="button" data-command="insertUnorderedList">• Liste</button
+          ><button type="button" data-command="insertOrderedList">1. Liste</button
+          ><button type="button" data-command="removeFormat">Format löschen</button
+          ><button type="button" data-command="undo" title="Rückgängig">↶</button
+          ><button type="button" data-command="redo" title="Wiederholen">↷</button>
+        </div>
+        <div class="markdown-toolbar" role="toolbar" aria-label="Tabellen und Trennlinien">
+          <button type="button" data-table="insert">Tabelle einfügen</button>
+          <button type="button" data-table="row-add">Zeile +</button>
+          <button type="button" data-table="row-remove">Zeile −</button>
+          <button type="button" data-table="column-add">Spalte +</button>
+          <button type="button" data-table="column-remove">Spalte −</button>
+          <button type="button" data-table="remove">Tabelle entfernen</button>
+          <button type="button" data-command="insertHorizontalRule">Trennlinie</button>
+        </div>
+        <div
+          id="notice-source"
+          class="notice-rich-input"
+          contenteditable="true"
+          role="textbox"
+          aria-multiline="true"
+          aria-labelledby="notice-label"
+          spellcheck="true"
+        ></div>
+        <small
+          >Text markieren und oben formatieren. Für Tabellenaktionen zuerst in eine Zelle klicken.
+          Tab wechselt zwischen Zellen. Trennlinien lassen sich mit der Löschtaste entfernen.</small
+        >
+      </section>
+      <section>
+        <label>Live-Vorschau</label>
+        <div class="notice-monitor-preview">
+          <iframe src="/notice-preview.html" title="Infotafel im Bildschirmviertel (16:9)"></iframe>
+        </div>
+        <small
+          >Automatisch eingepasst ins 16:9-Infofeld. Schriftgrößen bestimmen die Größenverhältnisse;
+          die Anzeige nutzt den verfügbaren Platz.</small
+        >
+      </section>
+    </div>
+    <div class="dialog-actions">
+      <label class="check-row"
+        ><input type="checkbox" name="visible" /><span>Auf dem Monitor anzeigen</span></label
+      ><button type="button" data-close>Abbrechen</button
+      ><button type="submit" class="primary">Speichern</button>
+    </div>
+    <p class="form-error" role="alert"></p>
+  </form>
+</template>

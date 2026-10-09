@@ -1,0 +1,45 @@
+name: Checks and Docker
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      PUPPETEER_SKIP_DOWNLOAD: 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm run format:check
+      - run: npm test
+      - run: npm run release:check
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t wallrelay:ci .
+      - name: Admin and monitor browser checks
+        run: >-
+          docker run --rm --shm-size=256m
+          -e BROWSER_TEST_ARTIFACT_DIR=/tmp/browser-artifacts
+          --mount type=bind,src="${{ github.workspace }}/scripts/test-admin-browser.js",dst=/app/scripts/test-admin-browser.js,readonly
+          --mount type=bind,src="${{ github.workspace }}/scripts/test-notice-browser.js",dst=/app/scripts/test-notice-browser.js,readonly
+          --entrypoint node wallrelay:ci /app/scripts/test-admin-browser.js
+      - name: Container smoke test
+        run: |
+          docker run -d --name wall-ci -p 127.0.0.1:3000:3000 -e SETUP_KEY=ci-only-disposable-setup-key-12345 -e ORGANIZATION_PRESET=neutral wallrelay:ci
+          for i in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:3000/healthz; then exit 0; fi
+            sleep 2
+          done
+          docker logs wall-ci
+          exit 1
+      - if: always()
+        run: docker rm -f wall-ci || true

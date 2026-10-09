@@ -1,0 +1,132 @@
+<template id="library-actions">
+  <button id="new-reolink" class="button"><span data-icon="plus"></span> Reolink-Recorder</button
+  ><button id="new-stream" class="button"><span data-icon="plus"></span> Webcam hinzufügen</button
+  ><button id="new-text" class="button"><span data-icon="plus"></span>Infotafel bearbeiten</button
+  ><button id="upload" class="primary"><span data-icon="upload"></span> Bilder hochladen</button
+  ><input id="files" type="file" accept="image/jpeg,image/png,image/webp" multiple hidden />
+</template>
+<template id="library-overview">
+  <section class="overview-grid">
+    <div class="stat">
+      <span><span data-icon="photo"></span> Fotos</span
+      ><strong
+        ><span data-photo-count></span><small><span data-photo-label></span></small
+      ></strong>
+    </div>
+    <div class="stat">
+      <span><span data-icon="pin"></span> Fixiert</span
+      ><strong><span data-pin-count></span><small>regelmäßig im Wechsel</small></strong>
+    </div>
+    <div class="stat">
+      <span><span data-icon="screen"></span> Auf dem Monitor</span
+      ><strong><span data-active-count></span><small>aktive Inhalte</small></strong>
+    </div>
+    <div class="stat accent">
+      <span><span data-icon="clock"></span> Euer Rhythmus</span
+      ><strong><span data-duration></span><small>Sekunden pro Foto</small></strong>
+    </div>
+  </section>
+</template>
+<template id="library-disconnected">
+  <div class="connect-banner">
+    <span class="banner-icon"><span data-icon="chat"></span></span>
+    <div>
+      <strong>Eure Gruppe. Eure Bilderwand.</strong>
+      <p>Verbinde WhatsApp, damit neue Fotos automatisch hier landen – bestätigt mit 👍.</p>
+    </div>
+    <button id="connect-shortcut" class="text-button">
+      WhatsApp verbinden <span data-icon="arrow"></span>
+    </button>
+  </div>
+</template>
+<template id="library-connected">
+  <div class="connected-banner">
+    <span class="dot green"></span> <span data-group-name></span
+    ><span
+      >Importiert: 👍 · Mit ❌ auf das Foto reagieren, um es aus der Bilderwand zu löschen</span
+    >
+  </div>
+</template>
+<template id="library-list">
+  <section class="library">
+    <div class="library-toolbar">
+      <div class="tabs" role="group" aria-label="Inhalte filtern"></div>
+      <input
+        type="search"
+        id="search"
+        placeholder="Inhalte suchen …"
+        aria-label="Inhalte suchen"
+        value=""
+      />
+    </div>
+    <div id="items-grid" class="items-grid"></div>
+    <p class="library-hint">
+      <span data-library-hint></span>
+    </p>
+  </section>
+</template>
+<template id="library-empty"
+  ><div class="empty-state">
+    <span class="empty-art" data-icon="photo"></span
+    ><span class="eyebrow">RAUM FÜR EURE IDEEN</span>
+    <h2></h2>
+    <p></p></div
+></template>
+<template id="media-card">
+  <article class="media-card">
+    <button class="card-preview" data-edit>
+      <span data-preview></span><span class="pin-badge"><span data-icon="pin"></span> Fixiert</span
+      ><span class="hidden-badge"></span>
+    </button>
+    <button
+      type="button"
+      class="quick-delete"
+      data-delete
+      title="Inhalt aus Anzeige entfernen und archivieren"
+    >
+      ×
+    </button>
+    <div class="card-info">
+      <h3></h3>
+      <div><span data-source></span><span data-duration></span></div>
+      <div data-details></div>
+    </div>
+    <div class="button-row" data-rotation-controls>
+      <button
+        type="button"
+        data-rotate="left"
+        title="90° nach links drehen"
+        aria-label="90° nach links drehen"
+      >
+        ↩️ Links
+      </button>
+      <button
+        type="button"
+        data-rotate="right"
+        title="90° nach rechts drehen"
+        aria-label="90° nach rechts drehen"
+      >
+        ↪️ Rechts
+      </button>
+    </div>
+    <div class="card-actions">
+      <button data-pin><span data-icon="pin"></span></button><button data-visible></button
+      ><button data-edit>Bearbeiten</button>
+    </div>
+  </article>
+</template>
+<template id="image-details"
+  ><dl class="image-details">
+    <dt>Import</dt>
+    <dd data-import></dd>
+    <dt>Restlaufzeit</dt>
+    <dd data-lifetime></dd>
+    <dt>Absender</dt>
+    <dd data-sender></dd>
+    <dt>Ausrichtung</dt>
+    <dd data-orientation></dd></dl
+></template>
+<template id="camera-placeholder"
+  ><span class="stream-card-preview"
+    ><span data-icon="screen"></span><strong></strong><small></small></span
+></template>

@@ -1,0 +1,32 @@
+<template id="storage-panel">
+  <section class="panel account-panel">
+    <h2>Lokaler Speicher</h2>
+    <p><span data-storage-used></span> MB von <span data-storage-max></span> MB belegt</p>
+    <button id="change-password" class="button">Adminpasswort ändern</button>
+  </section>
+</template>
+<template id="password-editor">
+  <form id="password-form">
+    <h2>Passwort ändern</h2>
+    <label
+      >Aktuelles Passwort<input
+        type="password"
+        name="oldPassword"
+        autocomplete="current-password"
+        required /></label
+    ><label
+      >Neues Passwort<input
+        type="password"
+        name="password"
+        autocomplete="new-password"
+        minlength="12"
+        maxlength="256"
+        required
+    /></label>
+    <div class="dialog-actions">
+      <button type="button" id="cancel-password">Abbrechen</button
+      ><button class="primary">Speichern</button>
+    </div>
+    <p class="form-error" id="password-error"></p>
+  </form>
+</template>

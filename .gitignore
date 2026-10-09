@@ -1,0 +1,28 @@
+node_modules/
+data/
+.env
+.wwebjs_cache/
+.wwebjs_auth/
+test-results/
+*.log
+
+# One-off installation scripts contain personal contact details.
+scripts/update-board-notice.mjs
+scripts/complete-notice-contacts.mjs
+scripts/extend-notice-programmes.mjs
+scripts/align-board-phone.mjs
+.env.*
+!.env.example
+*.sqlite*
+*.pem
+*.key
+*.tar.gz
+*.zip
+coverage/
+backups/
+.DS_Store
+Thumbs.db
+
+# Local branding and release artifacts are not repository content.
+public/assets/brand/
+releases/

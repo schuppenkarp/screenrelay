@@ -1,0 +1,72 @@
+<template id="organization-settings">
+  <h2>Organisation & Erscheinungsbild</h2>
+  <p>
+    Alle Angaben gelten für Adminbereich und Monitor. Die Vorlagen ändern nur diese Einstellungen;
+    eure Bilder und Infotafel bleiben erhalten.
+  </p>
+  <form>
+    <div class="two-columns">
+      <label>Name<input name="name" type="text" /></label
+      ><label>Unterzeile<input name="subtitle" type="text" /></label
+      ><label>Homepage<input name="website" type="text" /></label
+      ><label>E-Mail<input name="email" type="text" /></label
+      ><label>Telefon<input name="phone" type="text" /></label
+      ><label>Adresse<input name="address" type="text" /></label
+      ><label>Fußzeile<input name="footer" type="text" /></label
+      ><label>Titel bei leerer Anzeige<input name="emptyTitle" type="text" /></label
+      ><label>Beschreibung<input name="emptyMessage" type="text" /></label
+      ><label>Akzentfarbe<input name="accentColor" type="color" /></label
+      ><label>Monitor-Hintergrund<input name="backgroundColor" type="color" /></label
+      ><label
+        >Schrift<select name="fontFamily">
+          <option value="Nunito">Nunito</option>
+          <option value="Arial">Arial</option>
+          <option value="Verdana">Verdana</option>
+          <option value="Georgia">Georgia</option>
+          <option value="Times New Roman">Times New Roman</option>
+          <option value="Courier New">Courier New</option>
+        </select></label
+      ><label>Region, z. B. de-AT<input name="locale" type="text" /></label
+      ><label>Zeitzone, z. B. Europe/Vienna<input name="timeZone" type="text" /></label>
+    </div>
+    <div class="organization-images">
+      <label
+        >Logo / Wortmarke<img data-brand-preview="logo" alt="Logo / Wortmarke" /><input
+          type="file"
+          data-image="logo"
+          accept="image/png,image/jpeg,image/webp"
+        /><small>PNG, JPG oder WebP · maximal 3 MB · Upload wird sofort übernommen</small></label
+      >
+      <label
+        >Bildmarke<img data-brand-preview="mark" alt="Bildmarke" /><input
+          type="file"
+          data-image="mark"
+          accept="image/png,image/jpeg,image/webp"
+        /><small>PNG, JPG oder WebP · maximal 3 MB · Upload wird sofort übernommen</small></label
+      >
+      <label
+        >Browser-Symbol<img data-brand-preview="favicon" alt="Browser-Symbol" /><input
+          type="file"
+          data-image="favicon"
+          accept="image/png,image/jpeg,image/webp"
+        /><small>PNG, JPG oder WebP · maximal 3 MB · Upload wird sofort übernommen</small></label
+      >
+    </div>
+    <h3>Integrationen</h3>
+    <div class="two-columns">
+      <label>Gerätename in WhatsApp<input name="whatsappDeviceName" type="text" /></label
+      ><label>Ordnername in Google Drive<input name="driveFolderName" type="text" /></label
+      ><label>Einsatz der Bilder für die KI-Prüfung<input name="aiContext" type="text" /></label
+      ><label>WhatsApp-Antwort bei KI-Sperre<input name="aiHeldMessage" type="text" /></label>
+    </div>
+    <small
+      >Ein geänderter WhatsApp-Gerätename gilt nach dem nächsten Verbindungsstart. Der
+      Drive-Ordnername gilt bei der erstmaligen Erstellung.</small
+    >
+    <div class="dialog-actions">
+      <button type="button" data-preset="neutral">Neutrale Vorlage</button
+      ><button class="primary">Organisation speichern</button>
+    </div>
+    <p class="form-error" role="status"></p>
+  </form>
+</template>

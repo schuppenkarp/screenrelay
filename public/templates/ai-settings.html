@@ -1,0 +1,124 @@
+<template id="ai-settings">
+  <h2>KI-Bildprüfung</h2>
+  <p>
+    Auffällige Fotos und nicht abgeschlossene Prüfungen bleiben gesperrt. In WhatsApp: ❓ mit
+    Antwort; ✅ gibt das Foto frei. Originale bleiben erhalten.
+  </p>
+  <form>
+    <h3>Inhaltsprüfung · OpenAI Moderation</h3>
+    <p>
+      Die Moderation ist kostenlos und prüft Bilder auf sexuelle Inhalte, Gewalt und
+      Selbstverletzung. Hass, Bedrohungen und weitere Textkategorien werden im mitgesendeten
+      Bildtext geprüft, nicht als Bildsymbole.
+    </p>
+    <label
+      >OpenAI-API-Schlüssel<input
+        name="key"
+        type="password"
+        autocomplete="new-password"
+        placeholder="Leer lassen, um vorhandenen Schlüssel zu behalten"
+    /></label>
+    <label class="check-row"
+      ><input name="enabled" type="checkbox" />Automatische Prüfung aktivieren</label
+    >
+    <label
+      >Prüfschwelle für Verdachtsfälle<input
+        name="threshold"
+        type="number"
+        min="0.01"
+        max="1"
+        step="0.01"
+        required
+    /></label>
+    <p>
+      Standard 0,20. Kleinere Werte markieren mehr Verdachtsfälle. Das ist ein Modellsignal, keine
+      verlässliche Prozentwahrscheinlichkeit. Von OpenAI markierte Inhalte werden unabhängig davon
+      gesperrt.
+    </p>
+    <h3>Ausrichtung · optionale Online-Prüfung</h3>
+    <label
+      >Anbieter<select name="provider">
+        <option value="off">Aus – nur vorhandene Bildorientierung (EXIF)</option>
+        <option value="gemini">Google Gemini</option>
+        <option value="openrouter">OpenRouter – alternative Vision-Modelle</option>
+      </select></label
+    >
+    <div data-provider="gemini">
+      <label
+        >Gemini-API-Schlüssel<input
+          name="geminiKey"
+          type="password"
+          autocomplete="new-password"
+          placeholder="Vorhandenen Schlüssel behalten"
+      /></label>
+      <p data-gemini-status></p>
+      <label
+        >Gemini-Modellkennung<input
+          name="geminiModel"
+          placeholder="Vision-Modell aus Google AI Studio"
+      /></label>
+      <p>
+        <a href="https://aistudio.google.com/api-keys" target="_blank" rel="noopener noreferrer"
+          >Google AI Studio: Schlüssel</a
+        >
+        ·
+        <a
+          href="https://ai.google.dev/gemini-api/docs/pricing"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Modelle und Gratislimits</a
+        >
+      </p>
+    </div>
+    <div data-provider="openrouter">
+      <label
+        >OpenRouter-API-Schlüssel<input
+          name="openrouterKey"
+          type="password"
+          autocomplete="new-password"
+          placeholder="Vorhandenen Schlüssel behalten"
+      /></label>
+      <p data-openrouter-status></p>
+      <label
+        >OpenRouter-Modellkennung<input
+          name="openrouterModel"
+          placeholder="anbieter/modell – mit Bildeingabe"
+      /></label>
+      <p>
+        <a href="https://openrouter.ai/models" target="_blank" rel="noopener noreferrer"
+          >Vision-Modell auswählen</a
+        >
+        ·
+        <a href="https://openrouter.ai/settings/keys" target="_blank" rel="noopener noreferrer"
+          >API-Schlüssel</a
+        >
+      </p>
+    </div>
+    <p>
+      Die Zusatzprüfung sendet unauffällige Fotos an den ausgewählten Anbieter. Gratislimits und
+      Kosten hängen von Modell und Konto ab. Kein automatischer Anbieterwechsel. Eindeutige
+      Drehvorschläge werden automatisch für die Anzeige übernommen. Nur unklare Ausrichtung bleibt
+      zur Kontrolle gesperrt. Originale bleiben unverändert.
+    </p>
+    <p>
+      Bilder und Bildtexte gehen zur Inhaltsprüfung an OpenAI. Schlüssel werden nur auf dem Server
+      gespeichert und nie zurück an den Browser gesendet.
+    </p>
+    <h3>Optionale Bildoptimierung</h3>
+    <label class="check-row"
+      ><input name="cropEnabled" type="checkbox" />Intelligenten Zuschnitt für die Monitoranzeige
+      verwenden</label
+    >
+    <p>
+      Benötigt Gemini oder OpenRouter. Die KI beurteilt mit der Ausrichtung, ob unwichtige Ränder
+      entfernt werden dürfen. Der Zuschnitt passt sich dem Anzeigefeld an, erhält mindestens 80 %
+      der Bildfläche und berücksichtigt einen Sicherheitsabstand zum erkannten Inhalt. Bei
+      Unsicherheit bleibt das ganze Foto sichtbar. Original und gespeicherte Bilddatei bleiben
+      unverändert. KI-Einschätzungen können falsch sein; Ausschalten zeigt sofort wieder die normale
+      Ansicht. Bestehende Fotos bei Bedarf erneut prüfen.
+    </p>
+    <button class="primary">KI-Einstellungen speichern</button>
+    <button type="button" data-review>Bestehende Fotos prüfen</button>
+    <p role="status"></p>
+  </form>
+</template>

@@ -1,0 +1,156 @@
+<template id="whatsapp-group">
+  <section class="group-rule-card" data-group-card>
+    <label class="check-row"
+      ><input type="checkbox" name="groupIds" value="" /><span data-group-name></span
+    ></label>
+    <p class="muted">
+      Häkchen setzen: eigene Regel verwenden. Ohne Häkchen gilt eine passende Namensregel.
+    </p>
+    <div data-group-rule="" class="two-columns">
+      <label
+        >Bildimport<select data-import-mode>
+          <option value="all">Alle Bilder</option>
+          <option value="hashtag">Nur mit Hashtag</option>
+        </select></label
+      >
+      <label
+        >Basis-Hashtag (nur einmal eingeben)<input
+          data-import-tag
+          value=""
+          placeholder="#bilderwand"
+          maxlength="65"
+      /></label>
+      <label class="check-row"
+        ><input type="checkbox" data-allow-pin /> Fixierung zusätzlich erlauben: Basis-Hashtag +
+        #fix</label
+      >
+      <label
+        >Bildtext auf dem Monitor<select data-caption-mode>
+          <option value="full">Ganzen Bildtext anzeigen</option>
+          <option value="removeHashtag">Nur Erkennungs-Hashtag entfernen</option>
+          <option value="none">Keinen Bildtext anzeigen</option>
+        </select></label
+      >
+    </div>
+    <p class="group-rule-summary" data-effective-rule aria-live="polite"></p>
+  </section>
+</template>
+<template id="whatsapp-page">
+  <div class="whatsapp-layout">
+    <section class="panel">
+      <div class="section-title">
+        <span class="whatsapp-icon"><span data-icon="chat"></span></span>
+        <div>
+          <h2>Euer WhatsApp-Account</h2>
+          <p><span class="dot"></span> <span data-connection-status></span></p>
+        </div>
+      </div>
+      <p>
+        Kopple euren eigenen Account als verknüpftes Gerät. Öffne auf dem Handy
+        <strong>WhatsApp → Verknüpfte Geräte → Gerät hinzufügen</strong>.
+      </p>
+      <div class="qr-area">
+        <img alt="WhatsApp QR-Code zum Verknüpfen" />
+        <p>Scanne diesen QR-Code mit WhatsApp.</p>
+      </div>
+      <div class="connection-placeholder">
+        <span data-icon="chat"></span><strong data-connection-title></strong>
+        <p data-connection-hint></p>
+      </div>
+      <p data-connection-error class="form-error" role="alert"></p>
+      <button id="retry-import" class="button">Fehlgeschlagenes Bild erneut importieren</button>
+      <div class="button-row">
+        <button id="wa-start" class="primary">
+          <span data-icon="chat"></span> Verbindung starten</button
+        ><button id="wa-stop" class="button">Pausieren</button>
+      </div>
+      <button id="wa-reset" class="text-button">Sitzung zurücksetzen</button>
+    </section>
+    <div>
+      <section class="panel">
+        <span class="eyebrow">DIE RICHTIGE RUNDE</span>
+        <h2>Gruppen auswählen</h2>
+        <p>Bilder aus allen ausgewählten Gruppen werden gleichzeitig übernommen.</p>
+        <p class="muted">
+          <span data-group-count></span>
+        </p>
+        <p class="notice" data-groups-error></p>
+        <button id="refresh-groups" class="button">Gruppen aktualisieren</button>
+        <form id="group-form">
+          <fieldset>
+            <legend>Namensregeln · gelten, wenn keine Einzelregel aktiv ist</legend>
+            <p>
+              * steht für beliebig viele Zeichen, ? für genau ein Zeichen. Groß-/Kleinschreibung ist
+              egal. Die erste passende Regel gilt; einzeln ausgewählte Gruppen haben Vorrang.
+            </p>
+            <div data-pattern-list></div>
+            <button type="button" id="add-group-pattern">Namensregel hinzufügen</button>
+            <p data-pattern-preview class="muted" aria-live="polite"></p>
+          </fieldset>
+          <fieldset>
+            <legend>Einzelgruppen · eigene Regeln haben Vorrang</legend>
+            <div data-group-list></div>
+          </fieldset>
+          <p>
+            Alle angehakten Gruppen werden gleichzeitig übernommen. Ohne Einzelauswahl oder passende
+            Namensregel pausiert der Bildimport. Im Hashtag-Modus zählt nur der Text direkt am Foto.
+            Groß-/Kleinschreibung ist egal. Bereits gespeicherte Bilder bleiben erhalten.
+          </p>
+          <button class="primary">Gruppen speichern</button>
+        </form>
+      </section>
+      <section class="panel import-info">
+        <span class="eyebrow">SO FUNKTIONIERT’S</span>
+        <h2>Foto senden. Fertig.</h2>
+        <ol>
+          <li>Ein neues Foto wird in eure Gruppe gesendet.</li>
+          <li>Die Bilderwand speichert es auf eurem Server.</li>
+          <li>Der Account reagiert auf das Foto mit <strong>👍</strong>.</li>
+          <li>Das Foto erscheint im laufenden Programm<span data-moderation-label></span>.</li>
+        </ol>
+        <p class="muted">
+          Der Import startet nach dem Verbinden und Auswählen der Gruppen. Nach einer
+          Verbindungsunterbrechung werden noch verfügbare Fotos der letzten 48 Stunden nachgeladen.
+          Fixieren hier verändert keine WhatsApp-Nachrichten.
+        </p>
+        <p class="notice" data-pending-reactions></p>
+        <p class="notice" data-reaction-error></p>
+        <p class="muted">
+          <span data-last-import></span>
+        </p>
+      </section>
+      <p class="integration-note">
+        Die Verbindung verwendet WhatsApp Web über eine inoffizielle Bibliothek. WhatsApp-Änderungen
+        können die Verbindung unterbrechen; Kontosperren sind möglich.
+      </p>
+    </div>
+  </div>
+</template>
+
+<template id="whatsapp-pattern">
+  <div data-pattern-row class="group-rule-card">
+    <label
+      >Namensmuster<input data-pattern-name maxlength="120" placeholder="*Verein*" required
+    /></label>
+    <label
+      >Basis-Hashtag (nur einmal eingeben)<input
+        data-pattern-tag
+        maxlength="65"
+        placeholder="#bilderwand"
+        required
+    /></label>
+    <label
+      >Bildtext auf dem Monitor<select data-pattern-caption>
+        <option value="removeHashtag">Nur Erkennungs-Hashtag entfernen</option>
+        <option value="full">Ganzen Bildtext anzeigen</option>
+        <option value="none">Keinen Bildtext anzeigen</option>
+      </select></label
+    >
+    <label class="check-row"
+      ><input type="checkbox" data-pattern-pin /> Fixierung zusätzlich erlauben: Basis-Hashtag +
+      #fix</label
+    >
+    <p class="group-rule-summary" data-pattern-summary aria-live="polite"></p>
+    <button type="button" data-pattern-remove>Regel entfernen</button>
+  </div>
+</template>

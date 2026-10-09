@@ -1,0 +1,46 @@
+{
+  "name": "screenrelay",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.11.0"
+  },
+  "scripts": {
+    "start": "node --experimental-sqlite server/index.js",
+    "dev": "node --experimental-sqlite --watch server/index.js",
+    "test": "node --experimental-sqlite --test tests/*.test.js",
+    "check": "npm run lint && node scripts/check.js",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "release:check": "node scripts/check-release.js",
+    "release:package": "node scripts/package-release.js",
+    "test:browser": "node --experimental-sqlite scripts/test-admin-browser.js",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "dompurify": "^3.4.16",
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "hls.js": "1.7.3",
+    "jose": "^6.2.12",
+    "marked": "^18.1.0",
+    "mpegts.js": "1.8.2",
+    "multer": "^2.0.2",
+    "node-ical": "^0.27.3",
+    "qrcode": "^1.5.4",
+    "sharp": "^0.35.5",
+    "whatsapp-web.js": "^1.34.7"
+  },
+  "overrides": {
+    "basic-ftp": "^6.2.2"
+  },
+  "devDependencies": {
+    "eslint": "^9.39.5",
+    "globals": "^16.5.0",
+    "prettier": "3.6.2"
+  },
+  "license": "AGPL-3.0-only",
+  "description": "Self-hosted photo wall, information board and camera display"
+}

@@ -1,0 +1,14 @@
+node_modules
+data
+public/vendor
+public/assets
+package-lock.json
+.git
+test-results
+*.log
+scripts/update-board-notice.mjs
+scripts/complete-notice-contacts.mjs
+scripts/extend-notice-programmes.mjs
+scripts/align-board-phone.mjs
+releases/
+backups/

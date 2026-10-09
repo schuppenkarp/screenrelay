@@ -1,0 +1,65 @@
+<template id="monitor-page">
+  <div class="display-layout">
+    <section class="monitor-preview">
+      <div class="monitor-frame">
+        <iframe src="/display?preview=1" title="Live-Vorschau der Bilderwand"></iframe>
+      </div>
+      <div class="monitor-stand"></div>
+      <span class="preview-label"
+        ><span class="dot green"></span> Live-Vorschau · <span data-active-count></span> aktive
+        Inhalte</span
+      >
+    </section>
+    <section class="panel monitor-setup">
+      <span class="eyebrow">IN DREI SCHRITTEN</span>
+      <h2>Bildschirm verbinden</h2>
+      <ol class="steps">
+        <li>
+          <strong>Monitor-Link kopieren</strong>
+          <p>Der Link gibt ausschließlich Zugriff auf die Anzeige.</p>
+        </li>
+        <li>
+          <strong>Am Monitor öffnen</strong>
+          <p>Öffne den Link im Browser des Monitor-PCs oder Smart-TVs.</p>
+        </li>
+        <li>
+          <strong>Vollbild einschalten</strong>
+          <p>
+            Klicke auf „Vollbild“ oder nutze F11. Für Dauerbetrieb den Energiesparmodus am Gerät
+            deaktivieren.
+          </p>
+        </li>
+      </ol>
+      <h3>Monitor-Zugänge</h3>
+      <p>Ein eigener Link je Bildschirm oder Standort. Gültig bis zum Widerruf, ohne Zeitlimit.</p>
+      <form id="monitor-access-form">
+        <label>Name<input name="name" maxlength="80" required placeholder="z. B. Empfang" /></label>
+        <button type="submit" class="primary">Zugang erstellen</button>
+      </form>
+      <div id="monitor-access-list" aria-live="polite"></div>
+      <a href="/display" target="_blank" rel="noopener" class="button wide">Anzeige hier öffnen</a>
+      <p class="muted">
+        Die Vorschau nutzt deine Admin-Anmeldung und benötigt keinen Monitor-Token. Monitor-Links
+        vertraulich behandeln.
+      </p>
+    </section>
+  </div>
+</template>
+<template id="monitor-link">
+  <h2>Monitor-Link</h2>
+  <p>Link markieren und kopieren:</p>
+  <input id="manual-link" readonly />
+  <div class="dialog-actions">
+    <button id="close-link" class="primary">Fertig</button>
+  </div>
+</template>
+
+<template id="monitor-access-row">
+  <div class="panel">
+    <strong data-access-name></strong>
+    <div class="dialog-actions">
+      <button type="button" data-access-copy>Link kopieren</button>
+      <button type="button" data-access-revoke>Zugang widerrufen</button>
+    </div>
+  </div>
+</template>

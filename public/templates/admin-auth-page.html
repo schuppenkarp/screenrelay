@@ -1,0 +1,63 @@
+<template id="auth-page">
+  <main class="auth-layout">
+    <section class="auth-story">
+      <a class="brand" href="/"
+        ><img
+          data-brand-logo
+          class="brand-wordmark"
+          src="/assets/default-wordmark.svg"
+          alt="Logo"
+          width="240"
+          height="42" /><span data-brand-subtitle class="brand-subtitle"></span
+      ></a>
+      <div>
+        <span class="eyebrow">GEMEINSAM ETWAS ZEIGEN</span>
+        <h1>Eure Momente.<br />Ein gemeinsamer<br /><em>Platz.</em></h1>
+        <p>
+          Aus eurer WhatsApp-Gruppe direkt auf den Bildschirm. Mit Raum für alles, was bleiben soll.
+        </p>
+      </div>
+      <span class="story-footer">Bilder · Neuigkeiten · Ideen</span>
+    </section>
+    <section class="auth-side">
+      <form id="auth-form" class="auth-card">
+        <span class="eyebrow"><span data-auth-kicker></span></span>
+        <h2><span data-auth-title></span></h2>
+        <p>
+          <span data-auth-description></span>
+        </p>
+        <a data-entra-login class="button wide" href="/api/auth/entra/start" hidden
+          >Mit Microsoft 365 anmelden</a
+        >
+        <label data-setup-key
+          >Einrichtungsschlüssel<input
+            name="setupKey"
+            type="password"
+            required
+            autocomplete="off"
+          /><small>SETUP_KEY aus der Serverkonfiguration</small></label
+        ><label
+          ><span data-password-label></span
+          ><input
+            name="password"
+            type="password"
+            required
+            maxlength="256"
+            autocomplete="current-password"
+            placeholder="" /></label
+        ><label data-confirm
+          >Passwort wiederholen<input
+            name="confirm"
+            type="password"
+            required
+            minlength="12"
+            autocomplete="new-password"
+        /></label>
+        <p id="auth-error" class="form-error" role="alert"></p>
+        <button class="primary wide" type="submit">
+          <span data-submit-label></span> <span data-icon="arrow"></span></button
+        ><small class="auth-note">Deine Bilder bleiben auf deinem eigenen Server.</small>
+      </form>
+    </section>
+  </main>
+</template>

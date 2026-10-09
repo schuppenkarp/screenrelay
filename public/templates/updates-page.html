@@ -1,0 +1,25 @@
+<template id="updates-page">
+  <section id="updates-panel" class="panel">
+    <h2>ScreenRelay</h2>
+    <dl>
+      <dt>Installiert</dt>
+      <dd data-installed>…</dd>
+      <dt>Neueste stabile Version</dt>
+      <dd data-latest>…</dd>
+    </dl>
+    <p data-update-status role="status"></p>
+    <button type="button" data-check-update>Status aktualisieren</button>
+    <h3>Am Server aktualisieren</h3>
+    <p>
+      Im Installationsordner <strong>UPDATE.cmd</strong> starten. Das Skript lädt die neueste
+      stabile Veröffentlichung, baut das Docker-Image, sichert das Datenvolume und startet die neue
+      Version. Bilder, Einstellungen und Anmeldedaten bleiben erhalten.
+    </p>
+    <p>
+      Die Anwendung hat keinen Docker-Zugriff. Updates werden ausschließlich am Server ausgeführt.
+    </p>
+    <details open>
+      <summary>Versionshinweise</summary>
+      <pre data-release-notes style="white-space: pre-wrap"></pre>
+    </details></section
+></template>

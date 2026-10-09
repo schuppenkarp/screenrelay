@@ -1,0 +1,161 @@
+<template id="playback-settings">
+  <form id="settings-form" class="settings-form">
+    <section class="panel">
+      <div class="section-title">
+        <span data-icon="clock"></span>
+        <div>
+          <h2>Rhythmus & Anzeigedauer</h2>
+          <p>Jeder Inhalt bekommt seinen Moment.</p>
+        </div>
+      </div>
+      <label>Name der Bilderwand<input name="title" maxlength="80" required value="" /></label>
+      <div class="two-columns">
+        <label
+          >Fotos anzeigen für
+          <div class="unit-input">
+            <input name="photoDuration" type="number" min="2" max="600" value="" required /><span
+              >Sekunden</span
+            >
+          </div></label
+        ><label
+          >Fixierte Inhalte anzeigen für
+          <div class="unit-input">
+            <input name="pinDuration" type="number" min="2" max="600" value="" required /><span
+              >Sekunden</span
+            >
+          </div></label
+        >
+      </div>
+      <label
+        >Fixierten Inhalt einblenden nach
+        <div class="unit-input">
+          <input name="pinInterval" type="number" min="1" max="100" value="" required /><span
+            >normalen Fotos</span
+          >
+        </div>
+        <small
+          >Fixierte Inhalte wechseln sich ab. Ohne normale Fotos laufen sie nacheinander.</small
+        ></label
+      >
+      <div class="rhythm-preview">
+        <span>Foto</span><span>Foto</span><span>…</span
+        ><span class="fixed"><span data-icon="pin"></span> Fixierter Inhalt</span><span>Foto</span>
+      </div>
+    </section>
+    <section class="panel">
+      <div class="section-title">
+        <span data-icon="settings"></span>
+        <div>
+          <h2>Übergänge & Darstellung</h2>
+          <p>Von einem Moment zum nächsten.</p>
+        </div>
+      </div>
+      <div class="two-columns">
+        <label
+          >Übergang<select name="transition">
+            <option value="fade">Überblenden</option>
+            <option value="slide">Seitlich schieben</option>
+            <option value="zoom">Sanfter Zoom</option>
+            <option value="none">Direkter Wechsel</option>
+            <option value="random">Zufällig mischen</option>
+          </select></label
+        ><label
+          >Dauer des Übergangs
+          <div class="unit-input">
+            <input
+              name="transitionDuration"
+              type="number"
+              min="0"
+              max="1500"
+              step="50"
+              required
+              value=""
+            /><span>Millisekunden</span>
+          </div></label
+        >
+      </div>
+      <label
+        >Bildaufteilung<select name="photosPerScreen">
+          <option value="1">Einzelbild</option>
+          <option value="2">Automatisch · Hochformat nebeneinander</option></select
+        ><small
+          >Querformatbilder belegen ein ganzes Bildschirmfeld. Die Infotafel belegt das
+          konfigurierte Feld. Im Hochformat wechselt abwechselnd nur eine Bildschirmhälfte. Fixierte
+          Hochformatbilder bleiben stehen, während die andere Seite wechselt. Bei zwei wechselnden
+          Fotos erfolgt der Seitenwechsel nach der halben Anzeigedauer. Neben einem fixierten Bild
+          gilt die volle Anzeigedauer.</small
+        ></label
+      ><label
+        >Bildformat<select name="fit">
+          <option value="contain">Ganzes Bild zeigen · mit Rand bei Bedarf</option>
+          <option value="cover">Bildschirm füllen · Ränder beschneiden</option>
+        </select></label
+      ><label class="check-row"
+        ><input name="showCaptions" type="checkbox" /><span
+          >Bildtitel auf dem Monitor anzeigen</span
+        ></label
+      ><label class="check-row"
+        ><input name="moderation" type="checkbox" /><span
+          >Neue WhatsApp-Fotos zuerst prüfen<small
+            >Fotos werden gespeichert und mit 👍 bestätigt, erscheinen aber erst nach deiner
+            Freigabe.</small
+          ></span
+        ></label
+      >
+    </section>
+    <section class="panel">
+      <div class="section-title">
+        <span data-icon="clock"></span>
+        <div>
+          <h2>Fotos automatisch ausblenden</h2>
+          <p>Die neuesten Momente bleiben auf dem Monitor.</p>
+        </div>
+      </div>
+      <div class="two-columns">
+        <label
+          >WhatsApp-Fotos ausblenden nach
+          <div class="unit-input">
+            <input name="retentionDays" type="number" min="0" max="3650" required value="" /><span
+              >Tagen</span
+            >
+          </div>
+          <small>Ab Importdatum. 0 = unbegrenzt anzeigen.</small></label
+        ><label
+          >Mindestens behalten
+          <div class="unit-input">
+            <input name="minimumPhotos" type="number" min="0" max="10000" required value="" /><span
+              >Fotos</span
+            >
+          </div>
+          <small
+            >Die neuesten freigegebenen WhatsApp-Fotos bleiben auch nach Ablauf sichtbar.</small
+          ></label
+        >
+      </div>
+      <label
+        >Maximal in der Anzeige
+        <div class="unit-input">
+          <input name="maximumPhotos" type="number" min="0" max="10000" required value="" /><span
+            >Fotos</span
+          >
+        </div>
+        <small
+          >Die neuesten normalen Fotos inklusive Uploads. 0 = unbegrenzt. Fixierte Inhalte zählen
+          nicht mit. Das Maximum hat Vorrang vor dem Mindestbestand; ältere Fotos bleiben in der
+          Mediathek.</small
+        ></label
+      >
+      <p>
+        Fixierte Inhalte und manuelle Uploads bleiben gespeichert. Abgelaufene Fotos bleiben in der
+        Mediathek und können durch Fixieren wieder angezeigt werden. Manuell ausgeblendete Fotos
+        zählen nicht zur Mindestanzahl.
+      </p>
+    </section>
+    <div class="save-bar">
+      <span>Änderungen werden automatisch vom Monitor übernommen.</span
+      ><button type="submit" class="primary">
+        Einstellungen speichern <span data-icon="check"></span>
+      </button>
+    </div>
+  </form>
+</template>

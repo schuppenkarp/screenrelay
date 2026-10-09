@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#121212" />
+    <title>Bilderwand · Anzeige</title>
+    <link rel="stylesheet" href="/display.css" />
+    <script src="/vendor/mpegts.js"></script>
+    <script type="module" src="/display.js"></script>
+    <link rel="stylesheet" href="/brand.css" />
+    <link rel="stylesheet" href="/wall-features.css" />
+    <link rel="icon" type="image/png" href="/assets/default-mark.svg" />
+  </head>
+  <body>
+    <main id="stage" aria-label="Bilderwand">
+      <section id="empty">
+        <img
+          class="wall-brand"
+          data-brand-mark
+          src="/assets/default-mark.svg"
+          alt="Logo"
+          width="200"
+          height="143"
+        />
+        <p data-brand-subtitle class="eyebrow">BILDERWAND</p>
+        <h1>Raum für eure<br /><em>nächste große Idee.</em></h1>
+        <p id="empty-message">Die Bilderwand wird geladen …</p>
+        <span data-brand-footer class="empty-footer">GEMEINSAM MEHR ZEIGEN.</span>
+      </section>
+    </main>
+    <div id="connection" role="status" hidden>Verbindung unterbrochen · Erneuter Versuch …</div>
+  </body>
+</html>

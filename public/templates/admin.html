@@ -1,0 +1,67 @@
+<template id="admin-shell">
+  <div class="app-layout">
+    <aside class="sidebar">
+      <a class="brand" href="/"
+        ><img
+          data-brand-logo
+          class="brand-wordmark"
+          src="/assets/default-wordmark.svg"
+          alt="Logo"
+          width="240"
+          height="42" /><span data-brand-subtitle class="brand-subtitle"></span
+      ></a>
+      <div class="workspace-label">VERWALTUNG</div>
+      <nav>
+        <button data-page="library">
+          <span data-icon="grid"></span><span>WhatsApp-Bilder</span>
+        </button>
+        <button data-page="pins"><span data-icon="pin"></span><span>Fixierte Inhalte</span></button>
+        <button data-page="display"><span data-icon="screen"></span><span>Monitor</span></button>
+        <button data-page="whatsapp"><span data-icon="chat"></span><span>WhatsApp</span></button>
+      </nav>
+      <div class="workspace-label settings-nav-label">EINSTELLUNGEN</div>
+      <nav aria-label="Einstellungen">
+        <button data-page="updates"><span data-icon="arrow"></span><span>Updates</span></button>
+        <button data-page="layout"><span data-icon="grid"></span><span>Layout</span></button>
+        <button data-page="touch">
+          <span data-icon="screen"></span><span>Touch-Ansicht</span>
+        </button>
+        <button data-page="settings"><span data-icon="clock"></span><span>Wiedergabe</span></button>
+        <button data-page="retention">
+          <span data-icon="photo"></span><span>Foto-Lebensdauer</span>
+        </button>
+        <button data-page="organization">
+          <span data-icon="settings"></span><span>Organisation</span>
+        </button>
+        <button data-page="calendar"><span data-icon="clock"></span><span>Kalender</span></button>
+        <button data-page="ai"><span data-icon="check"></span><span>KI-Bildprüfung</span></button>
+        <button data-page="drive"><span data-icon="upload"></span><span>Google Drive</span></button>
+        <button data-page="access">
+          <span data-icon="settings"></span><span>Zugang & Speicher</span>
+        </button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div id="sidebar-connection"></div>
+        <button id="logout" class="quiet"><span data-icon="logout"></span> Abmelden</button>
+      </div>
+    </aside>
+    <div class="workspace">
+      <header class="topbar">
+        <span>Bilderwand <span class="crumb">/</span> <b id="breadcrumb">WhatsApp-Bilder</b></span
+        ><a href="/display" target="_blank" rel="noopener" class="button small"
+          ><span data-icon="screen"></span> Anzeige öffnen <span data-icon="arrow"></span
+        ></a>
+      </header>
+      <main id="content"></main>
+      <footer class="page-footer">
+        <span data-brand-name></span><span data-brand-footer></span>
+      </footer>
+    </div>
+  </div>
+</template>
+<template id="sidebar-status">
+  <span class="dot"></span>
+  <div>
+    WhatsApp<small><span data-status-label></span></small>
+  </div>
+</template>

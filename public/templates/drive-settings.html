@@ -1,0 +1,52 @@
+<template id="drive-settings">
+  <h2>Bildarchiv · Google Drive</h2>
+  <p>
+    Originale, Anzeigeversionen und Bildinformationen aller Fotos werden in einem eigenen
+    Drive-Ordner gespeichert: active, inactive und deleted. Auch der vorhandene Bestand wird
+    übertragen. Die Anzeige liest aus dem lokalen Cache.
+  </p>
+  <details>
+    <summary>Google-Anmeldung einrichten</summary>
+    <ol>
+      <li>In der Google Cloud Console die Google Drive API aktivieren.</li>
+      <li>
+        Einen OAuth-Client vom Typ „Webanwendung“ erstellen und die folgende Weiterleitungsadresse
+        eintragen.
+      </li>
+      <li>Client-ID und Client-Secret unten speichern, dann Google Drive verbinden.</li>
+    </ol>
+    <p>Weiterleitungsadresse: <code data-callback></code></p>
+    <p>Eine ausführliche Anleitung liegt in docs/google-drive.md.</p>
+  </details>
+  <form>
+    <label
+      >Google-OAuth-Client-ID<input
+        name="clientId"
+        autocomplete="off"
+        placeholder="…apps.googleusercontent.com" /></label
+    ><label
+      >Client-Secret<input
+        name="clientSecret"
+        type="password"
+        autocomplete="new-password"
+        placeholder="Leer = vorhandenes Secret behalten" /></label
+    ><label class="check-row"
+      ><input name="enabled" type="checkbox" />Automatische Drive-Speicherung aktivieren</label
+    ><label class="check-row"
+      ><input name="cacheOnly" type="checkbox" />Lokalen Cache nach geprüfter Drive-Sicherung
+      bereinigen</label
+    ><small
+      >Aktive Fotos bleiben lokal verfügbar. Bei ausgeblendeten Fotos wird das Original nur in Drive
+      aufbewahrt; die Anzeigeversion bleibt für die Mediathek im Cache. Gelöschte Bilder bleiben
+      dauerhaft in Drive; ihre Metadaten bleiben auch lokal gespeichert.</small
+    >
+    <div class="dialog-actions">
+      <button class="primary">Drive-Einstellungen speichern</button
+      ><button type="button" data-connect>Google Drive verbinden</button
+      ><button type="button" data-sync>Jetzt synchronisieren</button
+      ><button type="button" data-disconnect>Verbindung trennen</button>
+    </div>
+    <p role="status"></p>
+    <a data-folder target="_blank" rel="noopener" hidden>Bildarchiv in Google Drive öffnen</a>
+  </form>
+</template>

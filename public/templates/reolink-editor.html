@@ -1,0 +1,75 @@
+<template id="reolink-editor">
+  <form>
+    <div class="dialog-heading">
+      <h2>Reolink-Kameras hinzufügen</h2>
+      <button type="button" data-close aria-label="Schließen">×</button>
+    </div>
+    <label data-saved-recorder
+      >Recorder<select name="saved">
+        <option value="">Neuer Recorder</option>
+      </select></label
+    >
+    <label
+      >Recorder-IP oder Hostname<input
+        name="address"
+        required
+        placeholder="192.168.1.100 oder https://recorder.local:443"
+        autocomplete="off"
+    /></label>
+    <div class="two-columns">
+      <label
+        >Benutzername<input
+          name="username"
+          required
+          maxlength="200"
+          autocomplete="off"
+          value="admin"
+      /></label>
+      <label
+        >Passwort<input
+          name="password"
+          type="password"
+          maxlength="4096"
+          autocomplete="new-password"
+      /></label>
+    </div>
+    <p>
+      Die Kanäle werden direkt vom Recorder geladen. Passwörter bleiben verschlüsselt auf dem
+      Server.
+    </p>
+    <button type="submit" class="button" data-load>Kameras laden</button>
+    <section class="reolink-results" hidden>
+      <div class="reolink-selection-actions">
+        <button type="button" data-all>Alle verbundenen auswählen</button
+        ><button type="button" data-none>Auswahl aufheben</button>
+      </div>
+      <div class="reolink-channels"></div>
+      <p data-count></p>
+      <label class="check-row"
+        ><input type="checkbox" name="rotation" checked />Auch in der normalen Rotation
+        anzeigen</label
+      >
+      <label class="check-row"
+        ><input type="checkbox" name="touch" />Zur Touch-Auswahl hinzufügen (maximal 12 Inhalte
+        insgesamt)</label
+      >
+      <p>
+        Neue Kameras werden aktiv und fixiert angelegt, mit dem H.264-Substream. Bereits vorhandene
+        Kanäle werden nicht doppelt angelegt.
+      </p>
+      <button type="button" class="primary" data-import disabled>
+        Ausgewählte Kameras hinzufügen
+      </button>
+    </section>
+    <p class="form-error" role="status"></p>
+  </form>
+</template>
+<template id="reolink-channel">
+  <label class="check-row"
+    ><input type="checkbox" value="" data-online="" /><span
+      ><strong><span data-channel-name></span></strong
+      ><small
+        >Kanal <span data-channel-number></span> · <span data-channel-status></span
+        ><span data-channel-existing></span></small></span
+  ></label>
+</template>

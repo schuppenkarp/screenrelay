@@ -1,0 +1,45 @@
+<template id="calendar-settings">
+  <h2>Kalenderquelle & Anzeige</h2>
+  <form>
+    <label class="check-row"
+      ><input name="calendarEnabled" type="checkbox" />Kalender anzeigen</label
+    >
+    <label
+      >iCalendar-URL (HTTPS)<input name="calendarUrl" type="url" placeholder="https://…"
+    /></label>
+    <label>Kalenderüberschrift<input name="calendarHeading" /></label>
+    <div class="two-columns">
+      <label
+        >Aktualisierung in Sekunden<input
+          name="calendarRefreshSeconds"
+          type="number"
+          min="15"
+          max="3600"
+          required
+      /></label>
+      <label
+        >Maximal sichtbare Termine<input
+          name="calendarMaxEvents"
+          type="number"
+          min="1"
+          max="20"
+          required
+      /></label>
+    </div>
+    <p>
+      Es werden nur so viele Termine gezeigt, wie in das Infotafelfeld passen. Region und Zeitzone
+      stellst du unter Organisation ein.
+    </p>
+    <p class="form-error" role="status"></p>
+    <div class="dialog-actions"><button class="primary">Kalender speichern</button></div>
+  </form>
+  <section class="calendar-settings-preview" aria-label="Kalendervorschau">
+    <h2>Status & Terminvorschau</h2>
+    <p data-calendar-status role="status">Kalender wird geprüft …</p>
+    <p data-calendar-updated></p>
+    <button type="button" data-calendar-check>Jetzt prüfen</button>
+    <p>Vorschau der gespeicherten Einstellungen. Änderungen bitte zuerst speichern.</p>
+    <h3 data-calendar-heading></h3>
+    <ol data-calendar-events></ol>
+  </section>
+</template>

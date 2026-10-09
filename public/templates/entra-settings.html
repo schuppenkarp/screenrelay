@@ -1,0 +1,142 @@
+<template id="entra-settings">
+  <section class="panel">
+    <h2>Microsoft 365 / Entra ID</h2>
+    <p data-entra-identity></p>
+    <p data-entra-status role="status"></p>
+    <form data-entra-form hidden>
+      <p>
+        Freigegebene Benutzer erhalten Verwaltungszugriff. Masterkennwort und Entra-Zugänge können
+        nur mit dem Masterzugang geändert werden.
+      </p>
+      <label class="check-row"
+        ><input name="enabled" type="checkbox" /> Microsoft-Anmeldung aktivieren</label
+      >
+      <div class="settings-grid">
+        <label
+          >Mandanten-ID (Tenant ID)<input
+            name="tenantId"
+            maxlength="100"
+            placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+        /></label>
+        <label
+          >Anwendungs-ID (Client ID)<input
+            name="clientId"
+            maxlength="100"
+            placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+        /></label>
+        <label
+          >Öffentliche App-Adresse<input
+            name="origin"
+            type="url"
+            placeholder="https://wall.example.org"
+          /><small
+            >HTTPS; lokal ist http://localhost:3000 möglich. Muss PUBLIC_ORIGIN entsprechen, wenn
+            gesetzt.</small
+          ></label
+        >
+        <label
+          >Client-Geheimnis<input
+            name="clientSecret"
+            type="password"
+            autocomplete="new-password"
+            maxlength="4096" /><small data-secret-status></small
+        ></label>
+      </div>
+      <label class="check-row"
+        ><input name="clearSecret" type="checkbox" /> Gespeichertes Geheimnis entfernen</label
+      >
+      <label
+        >Redirect-URI für Entra<input data-entra-callback readonly aria-label="Redirect-URI"
+      /></label>
+      <button type="button" data-entra-save-connection>
+        Verbindung speichern &amp; Benutzer laden
+      </button>
+      <p>
+        Schritt 1: Verbindung speichern. Schritt 2: Benutzer auswählen. Schritt 3: Anmeldung
+        aktivieren und speichern. Für Schritt 1 ist noch kein Benutzer nötig.
+      </p>
+      <h3>Freigegebene Benutzer</h3>
+      <p>
+        Benutzer über die gespeicherte Verbindung nach Name oder E-Mail suchen und auswählen. Die
+        Auswahl wird erst beim Speichern freigegeben.
+      </p>
+      <label
+        >Benutzer suchen<input
+          data-entra-search
+          type="search"
+          maxlength="100"
+          autocomplete="off"
+          placeholder="Name oder E-Mail …"
+      /></label>
+      <button type="button" data-entra-search-button>Vorschläge laden</button>
+      <p data-entra-search-status role="status" aria-live="polite"></p>
+      <div data-entra-results class="entra-search-results" aria-label="Benutzervorschläge"></div>
+      <h4 data-entra-selected-count></h4>
+      <div data-entra-users aria-label="Ausgewählte Benutzer"></div>
+      <details>
+        <summary>Benutzersuche einrichten</summary>
+        <p>
+          In Entra bei dieser App unter API-Berechtigungen → Microsoft Graph →
+          Anwendungsberechtigungen <strong>User.Read.All</strong> hinzufügen und
+          Administratorzustimmung erteilen. Danach Mandanten-ID, Client-ID und Client-Geheimnis hier
+          speichern. Für die Ersteinrichtung die Anmeldung deaktiviert lassen, dann Benutzer suchen,
+          auswählen und aktivieren.
+        </p>
+        <p>
+          Die Suche liest Namen und E-Mail-Adressen aus eurem Verzeichnis. Mail- oder
+          Kalenderinhalte werden nicht gelesen. Ohne diese Berechtigung funktionieren bereits
+          eingerichtete Anmeldungen weiterhin.
+        </p>
+      </details>
+      <p>Änderungen melden bestehende Microsoft-Sitzungen ab. Der Masterzugang bleibt verfügbar.</p>
+      <div class="dialog-actions">
+        <button type="button" data-entra-check>Gespeicherten Mandanten prüfen</button>
+        <button type="submit" class="primary">Microsoft-Zugang speichern</button>
+      </div>
+      <p class="form-error" data-entra-error role="alert"></p>
+      <details>
+        <summary>Einrichtung in Microsoft Entra</summary>
+        <ol>
+          <li>
+            Unter App-Registrierungen eine Anwendung nur für dieses Organisationsverzeichnis
+            erstellen.
+          </li>
+          <li>
+            Unter Authentifizierung die Plattform <strong>Web</strong> mit der oben angezeigten
+            Redirect-URI anlegen.
+          </li>
+          <li>
+            Mandanten-ID und Client-ID hier eintragen. Unter Zertifikate &amp; Geheimnisse ein
+            Client-Geheimnis erzeugen und dessen <strong>Wert</strong> hier speichern. Ablaufdatum
+            vormerken.
+          </li>
+          <li>
+            Die Benutzerverzeichnis-Berechtigung wie oben beschrieben erteilen. Benutzer über die
+            Suche auswählen, Microsoft-Anmeldung aktivieren und speichern.
+          </li>
+          <li>
+            In einem privaten Browserfenster abmelden und „Mit Microsoft 365 anmelden“ testen. Es
+            werden keine Mail- oder Kalender-Leserechte benötigt. Die Benutzersuche benötigt
+            User.Read.All.
+          </li>
+        </ol>
+        <p>
+          MFA und Conditional Access gelten gemäß euren Entra-Richtlinien. Nach lokalem Abmelden
+          bleibt die Microsoft-Browsersitzung bestehen.
+        </p>
+      </details>
+    </form>
+  </section>
+</template>
+<template id="entra-user">
+  <div class="entra-user-row">
+    <div><strong data-user-name></strong><small data-user-email></small></div>
+    <button type="button" data-user-remove aria-label="Benutzer entfernen">Entfernen</button>
+  </div>
+</template>
+<template id="entra-user-suggestion">
+  <div class="entra-user-row">
+    <div><strong data-user-name></strong><small data-user-email></small></div>
+    <button type="button">Auswählen</button>
+  </div>
+</template>

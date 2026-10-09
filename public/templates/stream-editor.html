@@ -1,0 +1,69 @@
+<template id="stream-editor">
+  <form>
+    <div class="dialog-heading">
+      <h2><span data-editor-title></span></h2>
+      <button type="button" data-close aria-label="Schließen">×</button>
+    </div>
+    <label>Kameraname<input name="title" required maxlength="120" value="" /></label
+    ><label
+      >HTTP-Stream-URL<input
+        name="stream_url"
+        required
+        maxlength="2000"
+        placeholder="http://kamera.local/video.mjpg"
+        value=""
+      /><small
+        >Stream-Adresse ohne Benutzername und Passwort. Die Anmeldung wird separat
+        gespeichert.</small
+      ></label
+    ><label
+      >Benutzername<input name="stream_username" maxlength="200" autocomplete="off" value=""
+    /></label>
+    <label
+      >Passwort<input
+        type="password"
+        name="stream_password"
+        maxlength="4096"
+        autocomplete="new-password"
+        placeholder=""
+      />
+      <small
+        >Verschlüsselt auf dem Server gespeichert. Das gespeicherte Passwort wird nicht zurück an
+        den Browser gesendet.</small
+      ></label
+    >
+    <label class="check-row"
+      ><input type="checkbox" name="clear_stream_password" />Gespeichertes Passwort entfernen</label
+    >
+    <label
+      >Streamformat<select name="stream_kind">
+        <option value="mjpeg">MJPEG · laufende JPEG-Bilder</option>
+        <option value="hls">HLS · .m3u8</option>
+        <option value="flv">HTTP-FLV · Livevideo</option>
+        <option value="reolink">Reolink · HTTP-FLV mit automatischer Anmeldung</option>
+        <option value="video">HTTP-Video · browserfähiges Format</option>
+      </select></label
+    ><label
+      >Anzeigedauer in der Rotation (Sekunden)<input
+        name="duration"
+        type="number"
+        min="2"
+        max="600"
+        placeholder="Globale Fixdauer"
+        value="" /></label
+    ><label class="check-row"><input type="checkbox" name="pinned" />Als Fixinhalt verwenden</label
+    ><label class="check-row"><input type="checkbox" name="visible" />Kamera aktiv</label
+    ><label class="check-row"
+      ><input type="checkbox" name="rotation_visible" />Auch in der normalen Rotation zeigen</label
+    >
+    <p>
+      Für eine reine Touch-Kamera: aktiv und fixiert lassen, normale Rotation abwählen. Anschließend
+      unter Einstellungen → Touch-Ansicht auswählen.
+    </p>
+    <p class="form-error" role="status"></p>
+    <div class="dialog-actions">
+      <button type="button" data-delete class="danger">Entfernen</button
+      ><button type="button" data-close>Abbrechen</button><button class="primary">Speichern</button>
+    </div>
+  </form>
+</template>
