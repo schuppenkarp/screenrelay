@@ -13,14 +13,16 @@ Voraussetzung: bestehende Installation mit `.env`, `compose.proxy.yaml` und gena
 1. `UPDATE.cmd` und den Ordner `scripts` aus der Veröffentlichung in den Installationsordner übernehmen. `.env` und bestehende Compose-Einstellungen behalten.
 2. **UPDATE.cmd doppelklicken.** Standard-Compose-Projekt ist aus Kompatibilitätsgründen `wallrelay`.
 3. Das Skript lädt den Quellcode der neuesten stabilen GitHub-Veröffentlichung und baut das Image, während die bisherige Anwendung weiterläuft.
-4. Erst nach erfolgreichem Build wird ausschließlich die Anwendung angehalten. Das gesamte Datenvolume, `.env`, Compose-Datei und vorherige Image-ID werden unter `backups/<Zeitpunkt>` gesichert. Chromium-Sperrdateien werden nur im gestoppten Profil entfernt.
-5. Die neue Image-ID wird in `compose.version.yaml` gespeichert. Ports, Datenvolume und Konfiguration bleiben erhalten. Nach erfolgreichem Healthcheck den Monitor und die WhatsApp-Verbindung prüfen. WhatsApp kann bei ungültig gewordener Anmeldung eine neue QR-Kopplung verlangen.
+4. Erst nach erfolgreichem Build wird ausschließlich die Anwendung angehalten. Das gesamte Datenvolume, `.env`, Compose-Datei und vorherige Image-Referenz werden unter `backups/<Zeitpunkt>` gesichert. Chromium-Sperrdateien werden nur im gestoppten Profil entfernt.
+5. Die neue Image-Referenz wird in `compose.version.yaml` gespeichert. Ports, Datenvolume und Konfiguration bleiben erhalten. Nach erfolgreichem Healthcheck den Monitor und die WhatsApp-Verbindung prüfen. WhatsApp kann bei ungültig gewordener Anmeldung eine neue QR-Kopplung verlangen.
 
 Bestimmte Version oder anderes Projekt:
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\update-docker.ps1 -InstallDirectory . -Version v1.1.0 -ProjectName wallrelay
 ```
+
+Jeder Build erhält einen eigenen Image-Tag; das vorherige Image bleibt unter einem Sicherungstag erhalten. Auch diese Images werden nicht automatisch gelöscht.
 
 Das Skript lädt nur stabile Versionen aus dem oben genannten Repository. Die Update-Sperrdatei verhindert parallele Skriptläufe. Ausreichend Platz für Source, Image und eine vollständige Datensicherung vorhalten; alte Sicherungen werden absichtlich nicht automatisch gelöscht. Sicherungen enthalten private Daten und Schlüssel: Installationsordner und Backupzugriff beschränken.
 
@@ -34,7 +36,7 @@ docker compose -p wallrelay -f compose.proxy.yaml -f compose.version.yaml up -d
 
 Scheitert der Build oder Download, läuft der alte Container weiter. Scheitert die Sicherung vor dem Image-Wechsel, versucht das Skript den alten Container wieder zu starten. Scheitert der Healthcheck der neuen Version, wird sie gestoppt und die Sicherung bleibt erhalten; keine automatische Datenrücksetzung, da inzwischen Datenmigrationen erfolgt sein können.
 
-Für eine Rückkehr: Anwendung stoppen, den aktuellen fehlgeschlagenen Stand separat sichern, das bestätigte Datenvolume aus `backups/<Zeitpunkt>/data.tar.gz` wiederherstellen und die zugehörige vorherige Image-ID aus `restore.json` in `compose.version.yaml` setzen. Das bestehende Volume nicht versehentlich durch einen anderen Compose-Projektnamen ersetzen. Eine Wiederherstellung verwirft Änderungen seit dem gewählten Backup und sollte bewusst vom Serveradministrator ausgeführt werden. `docker compose down -v` ist kein Update-Schritt.
+Für eine Rückkehr: Anwendung stoppen, den aktuellen fehlgeschlagenen Stand separat sichern, das bestätigte Datenvolume aus `backups/<Zeitpunkt>/data.tar.gz` wiederherstellen und die zugehörige vorherige Image-Referenz aus `restore.json` in `compose.version.yaml` setzen. Das bestehende Volume nicht versehentlich durch einen anderen Compose-Projektnamen ersetzen. Eine Wiederherstellung verwirft Änderungen seit dem gewählten Backup und sollte bewusst vom Serveradministrator ausgeführt werden. `docker compose down -v` ist kein Update-Schritt.
 
 ## Linux / eigener Git-Checkout
 

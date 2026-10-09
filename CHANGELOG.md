@@ -1,5 +1,10 @@
 # Versionsverlauf
 
+## 1.1.1
+
+- Update-Skript bewahrt das bisherige Docker-Image vor dem Build unter einem eigenen Sicherungstag. Auch wiederholte Updates derselben Version bleiben damit sicherbar.
+- Stabilere Browserprüfung bei der Benutzerauswahl.
+
 ## 1.1.0
 
 Erste öffentliche ScreenRelay-Version (vormals WallRelay).

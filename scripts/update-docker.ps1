@@ -41,7 +41,10 @@ try {
   $release = Invoke-RestMethod -Uri $api -Headers @{ Accept='application/vnd.github+json' }
   if ($release.draft -or $release.prerelease -or $release.tag_name -notmatch '^v\d+\.\d+\.\d+$') { throw 'No stable release found.' }
   $tag = $release.tag_name
-  $stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
+  $stamp = Get-Date -Format 'yyyyMMdd-HHmmss-fff'
+  # Retain the exact running image before a build can replace any tag.
+  $previousImage = 'screenrelay:backup-' + $ProjectName + '-' + $stamp
+  Docker-Run -Arguments @('image','tag',$current.Image,$previousImage)
   $work = Join-Path $root ('updates\' + $tag + '-' + $stamp)
   New-Item -ItemType Directory -Path $work -Force | Out-Null
   $archive = Join-Path $work 'source.zip'
@@ -54,20 +57,20 @@ try {
   $source = $folders[0].FullName
   $package = Get-Content -LiteralPath (Join-Path $source 'package.json') -Raw | ConvertFrom-Json
   if ('v' + $package.version -ne $tag) { throw 'Release tag and package version differ.' }
-  $image = 'screenrelay:' + $tag
+  $image = 'screenrelay:' + $tag + '-' + $stamp
   Docker-Run -Arguments @('build','-t',$image,$source)
-  $newImage = Docker-Read -Arguments @('image','inspect','--format','{{.Id}}',$image)
+  $newImage = $image
   $backupDir = Join-Path $root ('backups\' + $stamp)
   New-Item -ItemType Directory -Path $backupDir -Force | Out-Null
   Copy-Item -LiteralPath $envFile -Destination (Join-Path $backupDir '.env')
   Copy-Item -LiteralPath $composeFile -Destination (Join-Path $backupDir 'compose.proxy.yaml')
   if (Test-Path -LiteralPath $override) { Copy-Item -LiteralPath $override -Destination (Join-Path $backupDir 'compose.version.yaml') }
-  @{ image=$current.Image; volume=$volume; project=$ProjectName; target=$tag; sourceSha=$release.target_commitish } | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $backupDir 'restore.json') -Encoding UTF8
+  @{ image=$previousImage; volume=$volume; project=$ProjectName; target=$tag; sourceSha=$release.target_commitish } | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $backupDir 'restore.json') -Encoding UTF8
   Write-Host 'Stopping the application and creating a complete backup ...'
   Docker-Run -Arguments ($composeArgs + @('stop','wall'))
   $stopped = $true
-  Docker-Run -Arguments @('run','--rm','--user','0','--entrypoint','tar','--mount',"type=volume,source=$volume,target=/source,readonly",'--mount',"type=bind,source=$backupDir,target=/backup",$current.Image,'czf','/backup/data.tar.gz','-C','/source','.')
-  Docker-Run -Arguments @('run','--rm','--user','0','--entrypoint','node','--mount',"type=volume,source=$volume,target=/app/data",'--mount',"type=bind,source=$source/scripts,target=/maintenance,readonly",$current.Image,'/maintenance/clear-profile-locks.js')
+  Docker-Run -Arguments @('run','--rm','--user','0','--entrypoint','tar','--mount',"type=volume,source=$volume,target=/source,readonly",'--mount',"type=bind,source=$backupDir,target=/backup",$previousImage,'czf','/backup/data.tar.gz','-C','/source','.')
+  Docker-Run -Arguments @('run','--rm','--user','0','--entrypoint','node','--mount',"type=volume,source=$volume,target=/app/data",'--mount',"type=bind,source=$source/scripts,target=/maintenance,readonly",$previousImage,'/maintenance/clear-profile-locks.js')
   # Keep private Compose settings, ports and volume name; replace only the image.
   [IO.File]::WriteAllText($override,"services:`n  wall:`n    image: $newImage`n",(New-Object Text.UTF8Encoding($false)))
   $switched = $true
