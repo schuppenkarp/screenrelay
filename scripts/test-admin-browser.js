@@ -293,9 +293,9 @@ try {
   await page.click('[data-entra-search-button]');
   await page.waitForSelector('[data-entra-results] button');
   assert.equal(await page.$$eval('[data-entra-results] img', (els) => els.length), 0);
-  await page.click('[data-entra-results] button');
+  await page.locator('[data-entra-results] .entra-user-row:first-child button').click();
   assert.equal(await page.$eval('[data-entra-results] button', (el) => el.disabled), true);
-  await page.click('[data-entra-results] .entra-user-row:nth-child(2) button');
+  await page.locator('[data-entra-results] .entra-user-row:nth-child(2) button').click();
   assert.equal(await page.$$eval('[data-entra-users] .entra-user-row', (els) => els.length), 2);
   await page.click('[data-entra-users] .entra-user-row:nth-child(2) button');
   await page.click('[data-entra-form] [name=enabled]');
